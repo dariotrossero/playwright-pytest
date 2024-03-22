@@ -1,3 +1,3 @@
 allure-reports/
-tests/videos
+tests/videos/*
 tests/allure-results
