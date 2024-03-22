@@ -1,5 +1,5 @@
 from typing import Any, Dict, Generator, List
-
+import allure
 import pytest
 
 from playwright.sync_api import (
@@ -76,8 +76,15 @@ def context(
     current_video_name = context.current_video_name
     current_video_path = os.path.join(video_path, current_video_name)
     updated_video_path = os.path.join(video_path, f'{request.node.originalname}_{browser_name}.webm')
-    context.close()
     os.rename(current_video_path, updated_video_path)
+    allure.attach.file(
+        source=os.getcwd() + updated_video_path.replace("./", "/"),
+        name=f'{request.node.originalname}_{browser_name}',
+        attachment_type=allure.attachment_type.WEBM
+    )
+
+    context.close()
+
     if request.session.testsfailed == current_failed_tests:
         # test should have been successful no real reason to keep it
         os.remove(updated_video_path)
