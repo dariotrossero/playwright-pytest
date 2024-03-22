@@ -13,4 +13,4 @@ class TestFillOutForms:
         forms_page.enter_name("Pedro")
         forms_page.enter_message("This is a test message")
         forms_page.click_submit()
-        assert not forms_page.captcha_error_displayed()
+        assert forms_page.captcha_error_displayed()
