@@ -49,4 +49,5 @@ class TestBasic:
 
     def test_access_secrets(self):
         Config.load_properties()
-        logging.info(Config.show_values())
+        r = Config.show_values()
+        assert "USER" in r.keys()
